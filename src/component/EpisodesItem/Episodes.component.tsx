@@ -13,7 +13,6 @@ export const EpisodesItem: FC<EpisodesComponentProps> = ({
   episode,
   onPress,
 }) => {
-
   return (
     <TouchableOpacity onPress={() => onPress(episode)}>
       <EpisodesContainer>

@@ -7,7 +7,7 @@ import {
   PersonImage,
   PersonName,
 } from './person.style';
-import {EpisodeItem, ShowItem} from '../../component';
+import { ShowItem} from '../../component';
 import {SubTitle} from '../../component/Typography';
 
 type ProfileScreenRouteProp = Props['route'];

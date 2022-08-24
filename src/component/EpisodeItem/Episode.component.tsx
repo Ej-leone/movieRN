@@ -8,9 +8,9 @@ interface EpisodeComponentProps {
 
 export const EpisodeItem: FC<EpisodeComponentProps> = ({episode}) => {
   const imageUri =
-    episode?.image ||
+    episode?.image.medium ||
     'https://cdn.pixabay.com/photo/2013/07/12/13/56/film-reel-147631_1280.png';
-  console.log({episode});
+
   return (
     <>
       <EpisodeImage
@@ -28,7 +28,7 @@ export const EpisodeItem: FC<EpisodeComponentProps> = ({episode}) => {
       <ContentText>{episode.season}</ContentText>
 
       <SubTitle> {'Summary '}</SubTitle>
-      <ContentText>{episode.summary}</ContentText>
+      <ContentText>{episode.summary?.replace(/(<([^>]+)>)/gi, '')}}</ContentText>
 
       <SubTitle> {'Air Date'}</SubTitle>
       <ContentText>{episode.airdate}</ContentText>

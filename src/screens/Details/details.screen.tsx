@@ -1,10 +1,10 @@
 import React, {FC, useState, useRef, useMemo, useCallback} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Pressable, Text, View} from 'react-native';
 import {DetailImage, DetailsContainer} from './details.style';
 import {AboutShowComponent} from '../../component/ShowItem/AboutShow.component';
 import {EpisodeItem, EpisodesItem} from '../../component';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {addSeriesInFavouriteList} from '../../utils';
+
 import {TabChooser} from '../../component';
 import {useGetShowEpisodes} from '../../network';
 
@@ -14,9 +14,8 @@ export const DetailsScreen: FC = ({route}) => {
   const [state, setState] = useState<string>('about'); //'about' | 'episodes'
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const addToFav = useCallback(addSeriesInFavouriteList, []);
   const {episodes} = useGetShowEpisodes(show.id);
-  // variables
+
   const snapPoints = useMemo(() => ['1%', '70%'], []);
 
   const selectEpisode = episode => {
@@ -24,6 +23,9 @@ export const DetailsScreen: FC = ({route}) => {
     setSelectedEpisode(episode);
   };
 
+  const closeModal = () => {
+    bottomSheetRef.current?.snapToIndex(0);
+  };
   return (
     <DetailsContainer>
       <DetailImage
@@ -47,12 +49,19 @@ export const DetailsScreen: FC = ({route}) => {
         />
       )}
 
-      <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
+      <BottomSheet
+        enablePanDownToClose={true}
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}>
         <View
           style={{
             flex: 1,
-            padding: 24,
+
           }}>
+          <Pressable onPress={closeModal}>
+            <Text>X</Text>
+          </Pressable>
           {selectedEpisode ? <EpisodeItem episode={selectedEpisode} /> : null}
         </View>
       </BottomSheet>

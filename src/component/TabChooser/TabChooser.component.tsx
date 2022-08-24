@@ -16,7 +16,12 @@ export const TabChooser: FC<TabChooserProps> = ({
   return (
     <TabChooserContainer>
       {tabs.map(tab => (
-        <TabItem text={tab} active={tab === activetab} onClick={setActiveTab} />
+        <TabItem
+          key={tab}
+          text={tab}
+          active={tab === activetab}
+          onClick={setActiveTab}
+        />
       ))}
     </TabChooserContainer>
   );
